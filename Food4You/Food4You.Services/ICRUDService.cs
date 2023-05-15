@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Food4You.Services
 {
-    public interface ICRUDService<T, TSearch, TInsert, TUpdate> : IService<T, TSearch> where T :class where TSearch : class
-        where TInsert : class where TUpdate : class
+
+    public interface ICRUDService<T, TSearch, TInsert, TUpdate> : IBaseService<T, TSearch> where T : class where TSearch : class where TInsert : class where TUpdate : class
     {
         T Insert(TInsert insert);
         T Update(int id, TUpdate update);
+        T Delete(int id);
+
     }
 }

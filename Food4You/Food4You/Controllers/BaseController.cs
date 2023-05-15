@@ -5,25 +5,25 @@ namespace Food4You.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+
     public class BaseController<T, TSearch> : ControllerBase where T : class where TSearch : class
     {
-        public IService<T,TSearch> Service { get; set; }
+        public IBaseService<T, TSearch> _service { get; set; }
 
-        public BaseController(IService<T, TSearch> service)
+        public BaseController(IBaseService<T, TSearch> service)
         {
-            Service = service;
+            _service = service;
         }
 
         [HttpGet]
         public virtual IEnumerable<T> Get([FromQuery] TSearch search = null)
         {
-            return Service.Get(search);
+            return _service.Get(search);
         }
-
         [HttpGet("{id}")]
-        public virtual T GetById(int id)
+        public virtual T GetbyId(int id)
         {
-            return Service.GetById(id);
+            return _service.GetById(id);
         }
     }
 
