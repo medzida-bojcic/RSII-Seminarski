@@ -14,6 +14,7 @@ public partial class Narudzba
     public int? KorisnikId { get; set; }
 
     public virtual Korisnik? Korisnik { get; set; }
+    public string? StateMachine { get; set; }
 
     public virtual ICollection<NarudzbaStavke> NarudzbaStavkes { get; set; } = new List<NarudzbaStavke>();
 

@@ -5,9 +5,14 @@ VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food4You", "Food4You\Food4You.csproj", "{BDEE911D-1475-4F76-BCBD-B0A73B2DF344}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food4You.Services", "Food4You.Services\Food4You.Services.csproj", "{2BE08094-E68B-4DC7-B1B0-90A1B96E43ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food4You.Services", "Food4You.Services\Food4You.Services.csproj", "{2BE08094-E68B-4DC7-B1B0-90A1B96E43ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food4You.Model", "Food4You.Model\Food4You.Model.csproj", "{D38EF3B2-099E-4CD7-9CFA-7AD5568C9168}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food4You.Model", "Food4You.Model\Food4You.Model.csproj", "{D38EF3B2-099E-4CD7-9CFA-7AD5568C9168}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2ACEDD70-DF4B-42E2-AF8C-1DCC8021E467}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

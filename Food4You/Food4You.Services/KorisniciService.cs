@@ -13,8 +13,8 @@ namespace Food4You.Services
 {
     public class KorisniciService : BaseCRUDService<Model.Korisnik, Database.Korisnik, KorisnikSearchRequest, KorisnikUpsertRequest, KorisnikUpsertRequest>, IKorisniciService
     {
-        public Food4YouContext Context { get; set; }
-        public  IMapper Mapper { get; set; }
+        //public Food4YouContext Context { get; set; }
+        //public  IMapper Mapper { get; set; }
 
         public KorisniciService(Food4YouContext context, IMapper mapper) : base(context, mapper)
         {
@@ -22,44 +22,13 @@ namespace Food4You.Services
             Mapper=mapper;  
         }
 
-        public override IList<Model.Korisnik> Get(KorisnikSearchRequest search)
-        {
-            var query = Context.Korisniks.AsQueryable();
+        //public override async Task BeforeInsert(Korisnik entity, KorisnikUpsertRequest insert)
+        //{
+        //    entity.LozinkaSalt = PasswordHelper.GenerateSalt();
+        //    entity.LozinkaHash = PasswordHelper.GenerateHash(entity.LozinkaSalt, insert.Lozinka);
+        //}
 
-            if(!string.IsNullOrWhiteSpace(search?.ImePrezime))
-            {
-                query = query.Where(x => x.Ime.ToLower().Contains(search.ImePrezime) ||
-                                    x.Prezime.ToLower().Contains(search.ImePrezime));
-            }
 
-            var list = query.ToList();
-            return Mapper.Map<List<Model.Korisnik>>(list);
-        }
-
-        public IList<Model.Korisnik> GetAll()
-        {
-            var database = Context.Korisniks.ToList();
-            var list = Mapper.Map<IList<Model.Korisnik>>(database);
-
-            return list;
-        }
-
-        public Model.Korisnik GetById(int id)
-        {
-            var entity = Context.Korisniks
-                .FirstOrDefault(x => x.Id == id);
-
-            if (entity == null)
-            {
-                // Handle the case when no entity is found with the given Id
-                return null;
-            }
-
-            // Map the retrieved entity to the corresponding Model.Korisnik object
-            var korisnikModel = Mapper.Map<Model.Korisnik>(entity);
-
-            return korisnikModel;
-        }
         public async Task<Model.Korisnik> Insert (KorisnikUpsertRequest request)
         {
             var entity = Mapper.Map<Database.Korisnik>(request);
@@ -80,20 +49,28 @@ namespace Food4You.Services
 
         }
 
+        public override IQueryable<Korisnik> AddInclude(IQueryable<Korisnik> query, KorisnikSearchRequest? search = null)
+        {
+            if (search?.IsUlogeIncluded == true)
+            {
+                query = query.Include("KorisnikUlogas.Uloga");
+            }
+            return base.AddInclude(query, search);
+        }
         public async Task<Model.Korisnik> Login(string korisnickoIme, string lozinka)
         {
-            var entity = await Context.Korisniks.FirstOrDefaultAsync(x => x.KorisnickoIme == korisnickoIme);
+            var entity = await Context.Korisniks.Include("KorisnikUlogas.Uloga").FirstOrDefaultAsync(x => x.KorisnickoIme == korisnickoIme);
 
             if (entity == null)
             {
-                throw new Exception("Pogrešan username ili password");
+                return null;
             }
 
             var hash = PasswordHelper.GenerateHash(entity.LozinkaSalt, lozinka);
 
             if (hash != entity.LozinkaHash)
             {
-                throw new Exception("Pogrešan username ili password");
+                return null;
             }
 
             return Mapper.Map<Model.Korisnik>(entity);

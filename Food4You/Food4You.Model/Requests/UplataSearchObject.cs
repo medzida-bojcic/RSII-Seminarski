@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Food4You.Model.Requests
 {
-    public class KorisnikSearchRequest : BaseSearchObject
+    public class UplataSearchObject : BaseSearchObject
     {
-        public bool IsUlogeIncluded { get; set; }
+        public int KorisnikId { get; set; }
     }
 }

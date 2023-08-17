@@ -18,5 +18,7 @@ namespace Food4You.Model
         public string LozinkaHash { get; set; }
         public string LozinkaSalt { get; set; }
 
+        public virtual ICollection<KorisniciUloge> KorisnikUlogas { get; } = new List<KorisniciUloge>();
+
     }
 }

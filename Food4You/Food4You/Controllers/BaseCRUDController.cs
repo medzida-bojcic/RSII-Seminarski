@@ -1,4 +1,5 @@
 ﻿using Food4You.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Food4You.Controllers
@@ -6,6 +7,7 @@ namespace Food4You.Controllers
     public class BaseCRUDController<T, TSearch, TInsert, TUpdate> : BaseController<T, TSearch>
             where T : class where TSearch : class where TInsert : class where TUpdate : class
     {
+
         public BaseCRUDController(ICRUDService<T, TSearch, TInsert, TUpdate> service) : base(service)
         {
 

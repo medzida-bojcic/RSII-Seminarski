@@ -1,11 +1,12 @@
 ﻿using Food4You.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Food4You.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-
+    //[Authorize]
     public class BaseController<T, TSearch> : ControllerBase where T : class where TSearch : class
     {
         public IBaseService<T, TSearch> _service { get; set; }

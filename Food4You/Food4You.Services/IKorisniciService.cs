@@ -10,8 +10,6 @@ namespace Food4You.Services
 {
     public interface IKorisniciService : ICRUDService<Model.Korisnik, KorisnikSearchRequest, KorisnikUpsertRequest, KorisnikUpsertRequest>
     {
-        IList<Model.Korisnik> GetAll();
-        IList<Model.Korisnik> Get(KorisnikSearchRequest search);
         Task<Model.Korisnik> Insert(KorisnikUpsertRequest korisnici);
 
         Task<Model.Korisnik> Login(string korisnickoIme, string lozinka);
